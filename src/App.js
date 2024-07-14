@@ -1,14 +1,15 @@
+
 import React from 'react';
 import VideoPlayer from './VideoPlayer';
-import Captions from "./captions.srt";
+import './App.css';
 
-const App = () => {
-  const captionsUrl = {Captions};
+function App() {
   return (
-    <div>
-      <VideoPlayer captionsUrl={captionsUrl} />
+    <div className="App">
+      <h1>Video Player with Captions</h1>
+      <VideoPlayer />
     </div>
   );
-};
+}
 
 export default App;

@@ -1,13 +1,15 @@
-.App {
-  text-align: center;
-}
-
 .transcript p {
   padding: 5px;
   transition: background-color 0.5s ease;
 }
 
 .transcript p.active {
-  background-color: #39f733;
+  background-color: #ffeb3b;
+}
+.App {
+  text-align: center;
 }
 
+h1 {
+  margin-bottom: 20px;
+}
