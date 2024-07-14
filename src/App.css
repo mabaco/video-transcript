@@ -3,9 +3,6 @@
   transition: background-color 0.5s ease;
 }
 
-.transcript p.active {
-  background-color: #ffeb3b;
-}
 .App {
   text-align: center;
 }

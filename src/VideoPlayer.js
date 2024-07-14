@@ -7,6 +7,7 @@ const VideoPlayer = () => {
   const transcriptRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [captions, setCaptions] = useState([]);
+  const [scrollEnabled, setScrollEnabled] = useState(true); // State for scroll toggle
   const activeCaptionRef = useRef(null);
 
   useEffect(() => {
@@ -19,14 +20,14 @@ const VideoPlayer = () => {
   }, []);
 
   useEffect(() => {
-    // Scroll to the active caption within the transcript container
-    if (activeCaptionRef.current && transcriptRef.current) {
+    // Scroll to the active caption within the transcript container if scrollEnabled is true
+    if (scrollEnabled && activeCaptionRef.current && transcriptRef.current) {
       transcriptRef.current.scrollTo({
         top: activeCaptionRef.current.offsetTop - transcriptRef.current.offsetTop,
         behavior: 'smooth',
       });
     }
-  }, [currentTime]);
+  }, [currentTime, scrollEnabled]);
 
   const handleTimeUpdate = () => {
     if (videoRef.current) {
@@ -40,23 +41,34 @@ const VideoPlayer = () => {
     }
   };
 
+  const toggleScroll = () => {
+    setScrollEnabled(prevScrollEnabled => !prevScrollEnabled);
+  };
+
   return (
     <div className="video-container">
       <video ref={videoRef} onTimeUpdate={handleTimeUpdate} controls>
         <source src={`${process.env.PUBLIC_URL}/video.mp4`} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className="transcript" ref={transcriptRef}>
-        {captions.map(({ start, end, text }, index) => (
-          <p
-            key={index}
-            ref={currentTime >= start && currentTime <= end ? activeCaptionRef : null}
-            className={currentTime >= start && currentTime <= end ? "active" : ""}
-            onClick={() => handleCaptionClick(start)}
-          >
-            {text}
-          </p>
-        ))}
+      <div>
+        <div>
+          <button className='sticky-button' onClick={toggleScroll}>
+            {scrollEnabled ? 'Disable Scroll' : 'Enable Scroll'}
+          </button>
+        </div>
+        <div className="transcript" ref={transcriptRef}>
+          {captions.map(({ start, end, text }, index) => (
+            <p
+              key={index}
+              ref={currentTime >= start && currentTime <= end ? activeCaptionRef : null}
+              className={currentTime >= start && currentTime <= end ? "active" : ""}
+              onClick={() => handleCaptionClick(start)}
+            >
+              {text}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );

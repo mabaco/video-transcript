@@ -36,6 +36,17 @@ video {
 }
 
 .transcript p.active {
-  background-color: #ffeb3b;
+  background-color: #b9bff5;
   font-weight: bold;
+}
+
+.sticky-button {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: rgb(216, 255, 255); /* Ensure button is readable */
+  padding: 10px;
+  margin-bottom: 10px;
+  border:  solid rgb(190, 221, 247);
+  border-radius: 1rem;
 }
