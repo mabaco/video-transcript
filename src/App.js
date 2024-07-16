@@ -10,10 +10,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route
-            path="/video/:video/:captions"
-            element={<VideoPlayer />}
-          />
+          <Route path="/video" element={<VideoPlayer />} />
         </Routes>
       </div>
     </Router>

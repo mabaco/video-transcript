@@ -6,7 +6,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const handleClick = (video, captions) => {
-    navigate(`/video/${video}/${captions}`);
+    navigate('/video', { state: { video, captions } });
   };
 
   return (

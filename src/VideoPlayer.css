@@ -40,7 +40,6 @@
 }
 
 .transcript p {
-  padding: 5px;
   transition: background-color 0.5s ease;
   cursor: pointer; 
 }
@@ -98,6 +97,9 @@
   .button {
     font-size: 24px;
     min-width: 196px;
+  }
+  .transcript p {
+    padding: 5px;
   }
   
 }

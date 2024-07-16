@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { parseSrt } from './utils/parseSrt';
 import './VideoPlayer.css';
 
 const VideoPlayer = () => {
-  const { video, captions } = useParams();
+  const location = useLocation();
+  const { video, captions } = location.state || {};
   const videoRef = useRef(null);
   const transcriptRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
@@ -13,12 +14,14 @@ const VideoPlayer = () => {
   const activeCaptionRef = useRef(null);
 
   useEffect(() => {
-    // Fetch and parse SRT file and set captions
-    const fetchCaptions = async () => {
-      const parsedCaptions = await parseSrt(`${process.env.PUBLIC_URL}/${captions}`);
-      setCaptionsList(parsedCaptions);
-    };
-    fetchCaptions();
+    if (captions) {
+      // Fetch and parse SRT file and set captions
+      const fetchCaptions = async () => {
+        const parsedCaptions = await parseSrt(`${process.env.PUBLIC_URL}/${captions}`);
+        setCaptionsList(parsedCaptions);
+      };
+      fetchCaptions();
+    }
   }, [captions]);
 
   useEffect(() => {
@@ -50,20 +53,22 @@ const VideoPlayer = () => {
   return (
     <div className="container">
       <div className='video-container'>
-        <video ref={videoRef} onTimeUpdate={handleTimeUpdate} controls>
-          <source src={`${process.env.PUBLIC_URL}/${video}`} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {video && (
+          <video ref={videoRef} onTimeUpdate={handleTimeUpdate} controls>
+            <source src={`${process.env.PUBLIC_URL}/${video}`} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
       </div>
       <div className="transcript-container" ref={transcriptRef}>
         <div className="btn-container">
           <button className='button' onClick={toggleScroll}>
-            <span >
+            <span>
               {scrollEnabled ? 'Disable Scroll' : 'Enable Scroll'}
             </span>
           </button>
         </div>
-        <div className="transcript" >
+        <div className="transcript">
           {captionsList.map(({ start, end, text }, index) => (
             <p
               key={index}
