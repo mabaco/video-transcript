@@ -22,7 +22,7 @@
 }
 
 .transcript-container {
-  flex: 0 0 20%;
+  flex: 0 0 22%;
   overflow-y: auto;
   position: relative;
 }
@@ -51,12 +51,12 @@
 }
 .btn-container {
   position: sticky;
-    top: 0;
-    background-color: #e0e0e0;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+  top: 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-self: auto;
 }
 
 .button {
@@ -94,11 +94,12 @@
   background: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 950px) {
   .button {
     font-size: 24px;
     min-width: 196px;
   }
+  
 }
 @media (max-width:1200px) {
   .container{

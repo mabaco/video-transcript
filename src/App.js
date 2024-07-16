@@ -1,14 +1,22 @@
-
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LandingPage from './LandingPage';
 import VideoPlayer from './VideoPlayer';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Video Player with Captions</h1>
-      <VideoPlayer />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/video/:video/:captions"
+            element={<VideoPlayer />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
