@@ -1,18 +1,30 @@
-.video-container {
-  display: flex;
-  justify-content: space-between;
+.App{
+  /* height: 100vh; */
 }
 
-video {
+.container {
+  display: flex;
+    height: 80vh; /* Adjust the height as needed */
+    max-width: 80%; /* Adjust the max-width as needed */
+    margin:auto;
+}
+.video-container {
   flex: 1;
-  max-width: 70%;
+  background-color: #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}
+.video-container video {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  object-fit: contain;
 }
 
 .transcript-container {
-  flex: 1;
-  max-width: 30%;
-  display: flex;
-  flex-direction: column;
+  flex: 0 0 20%;
+  overflow-y: auto;
+  position: relative;
 }
 
 .toggle-button {
@@ -22,31 +34,74 @@ video {
 }
 
 .transcript {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-  height: 400px; /* Adjust height as needed */
-  border-left: 1px solid #ccc;
+  padding: 20px;
+  height: 100%; 
+  box-sizing: border-box;
 }
 
 .transcript p {
   padding: 5px;
   transition: background-color 0.5s ease;
-  cursor: pointer; /* Indicate that the captions are clickable */
+  cursor: pointer; 
 }
 
 .transcript p.active {
   background-color: #b9bff5;
   font-weight: bold;
 }
-
-.sticky-button {
+.btn-container {
   position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: rgb(216, 255, 255); /* Ensure button is readable */
-  padding: 10px;
-  margin-bottom: 10px;
-  border:  solid rgb(190, 221, 247);
-  border-radius: 1rem;
+    top: 0;
+    background-color: #e0e0e0;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.button {
+  align-items: center;
+  align-self: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.button:active,
+.button:hover {
+  outline: 0;
+}
+
+.button span {
+  background-color:#5B42F3;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  width: 100%;
+  transition: 300ms;
+}
+
+.button:hover span {
+  background: none;
+}
+
+@media (min-width: 768px) {
+  .button {
+    font-size: 24px;
+    min-width: 196px;
+  }
+}
+@media (max-width:1200px) {
+  .container{
+    max-width:none; 
+  }
 }

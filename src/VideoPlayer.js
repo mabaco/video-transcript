@@ -46,15 +46,19 @@ const VideoPlayer = () => {
   };
 
   return (
-    <div className="video-container">
-      <video ref={videoRef} onTimeUpdate={handleTimeUpdate} controls>
-        <source src={`${process.env.PUBLIC_URL}/video.mp4`} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div>
-        <div>
-          <button className='sticky-button' onClick={toggleScroll}>
-            {scrollEnabled ? 'Disable Scroll' : 'Enable Scroll'}
+    <div className="container">
+      <div className='video-container'>
+        <video ref={videoRef} onTimeUpdate={handleTimeUpdate} controls>
+          <source src={`${process.env.PUBLIC_URL}/video.mp4`} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div className="transcript-container">
+        <div className="button-container">
+          <button className='button' onClick={toggleScroll}>
+            <span >
+              {scrollEnabled ? 'Disable Scroll' : 'Enable Scroll'}
+            </span>
           </button>
         </div>
         <div className="transcript" ref={transcriptRef}>
@@ -75,3 +79,6 @@ const VideoPlayer = () => {
 };
 
 export default VideoPlayer;
+
+
+
