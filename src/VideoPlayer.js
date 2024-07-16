@@ -10,12 +10,12 @@ const VideoPlayer = () => {
   const transcriptRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [captionsList, setCaptionsList] = useState([]);
-  const [scrollEnabled, setScrollEnabled] = useState(true); // State for scroll toggle
+  const [scrollEnabled, setScrollEnabled] = useState(true);
   const activeCaptionRef = useRef(null);
 
   useEffect(() => {
     if (captions) {
-      // Fetch and parse SRT file and set captions
+      // parse SRT file and set captions
       const fetchCaptions = async () => {
         const parsedCaptions = await parseSrt(`${process.env.PUBLIC_URL}/${captions}`);
         setCaptionsList(parsedCaptions);
@@ -25,7 +25,7 @@ const VideoPlayer = () => {
   }, [captions]);
 
   useEffect(() => {
-    // Scroll to the active caption within the transcript container if scrollEnabled is true
+    // scroll to active caption if scrollEnabled true
     if (scrollEnabled && activeCaptionRef.current && transcriptRef.current) {
       transcriptRef.current.scrollTo({
         top: activeCaptionRef.current.offsetTop - transcriptRef.current.offsetTop,

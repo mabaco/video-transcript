@@ -1,11 +1,13 @@
-.App{
-  /* height: 100vh; */
+
+:root{
+  --border-rad: 10px;
 }
+
 
 .container {
   display: flex;
-    height: 80vh; /* Adjust the height as needed */
-    max-width: 80%; /* Adjust the max-width as needed */
+    height: 80vh; 
+    max-width: 80%; 
     margin:auto;
 }
 .video-container {
@@ -13,16 +15,19 @@
   background-color: #f0f0f0;
   position: relative;
   overflow: hidden;
+  border-radius: var(--border-rad);
 }
 .video-container video {
+  border-radius: var(--border-rad);
   width: 100%;
-  height: auto;
-  min-height: 100%;
+
+  min-height: auto;
   object-fit: contain;
 }
 
 .transcript-container {
   flex: 0 0 22%;
+ 
   overflow-y: auto;
   position: relative;
 }
@@ -34,7 +39,7 @@
 }
 
 .transcript {
-  padding: 20px;
+  padding: 0 20px;
   height: 100%; 
   box-sizing: border-box;
 }
@@ -45,8 +50,8 @@
 }
 
 .transcript p.active {
-  background-color: #b9bff5;
-  font-weight: bold;
+  background-color: #9cadf8;
+  border-radius: var(--border-rad);
 }
 .btn-container {
   position: sticky;
@@ -59,20 +64,16 @@
 }
 
 .button {
-  align-items: center;
-  align-self: center;
   background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
   border: 0;
-  border-radius: 8px;
-  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-  box-sizing: border-box;
+  border-radius: var(--border-rad);
   color: #FFFFFF;
   display: flex;
   justify-content: center;
   line-height: 1em;
   max-width: 100%;
   min-width: 140px;
-  padding: 3px;
+  padding: 5px;
   cursor: pointer;
 }
 
@@ -84,7 +85,7 @@
 .button span {
   background-color:#5B42F3;
   padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--border-rad);
   width: 100%;
   transition: 300ms;
 }
