@@ -7,6 +7,7 @@ const VideoPlayer = () => {
   const location = useLocation();
   const { video, captions } = location.state || {};
   const videoRef = useRef(null);
+  const btnRef = useRef(null);
   const transcriptRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [captionsList, setCaptionsList] = useState([]);
@@ -17,7 +18,7 @@ const VideoPlayer = () => {
     if (captions) {
       // parse SRT file and set captions
       const fetchCaptions = async () => {
-        const parsedCaptions = await parseSrt(`${process.env.PUBLIC_URL}/${captions}`);
+        const parsedCaptions = await parseSrt(`${process.env.PUBLIC_URL}/captions/${captions}`);
         setCaptionsList(parsedCaptions);
       };
       fetchCaptions();
@@ -28,11 +29,35 @@ const VideoPlayer = () => {
     // scroll to active caption if scrollEnabled true
     if (scrollEnabled && activeCaptionRef.current && transcriptRef.current) {
       transcriptRef.current.scrollTo({
-        top: activeCaptionRef.current.offsetTop - transcriptRef.current.offsetTop,
+        top: activeCaptionRef.current.offsetTop - transcriptRef.current.offsetTop/2,
         behavior: 'smooth',
       });
     }
+   
   }, [currentTime, scrollEnabled]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (videoRef.current && transcriptRef.current) {
+        transcriptRef.current.style.height = `${videoRef.current.offsetHeight}px`;
+      }
+    };
+    // Call handleResize immediately after video metadata is loaded
+    if (videoRef.current) {
+      videoRef.current.addEventListener('loadedmetadata', handleResize);
+    }
+
+    handleResize(); 
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener('loadedmetadata', handleResize);
+      }
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleTimeUpdate = () => {
     if (videoRef.current) {
@@ -55,13 +80,13 @@ const VideoPlayer = () => {
       <div className='video-container'>
         {video && (
           <video ref={videoRef} onTimeUpdate={handleTimeUpdate} controls>
-            <source src={`${process.env.PUBLIC_URL}/${video}`} type="video/mp4" />
+            <source src={`${process.env.PUBLIC_URL}/videos/${video}`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         )}
       </div>
       <div className="transcript-container" ref={transcriptRef}>
-        <div className="btn-container">
+        <div className="btn-container" ref={btnRef}>
           <button className='button' onClick={toggleScroll}>
             <span>
               {scrollEnabled ? 'Disable Scroll' : 'Enable Scroll'}
